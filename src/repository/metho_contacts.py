@@ -6,6 +6,9 @@ from src.database.db_models import ContactPerson
 from src.valid_schemas import ContactPersonModel
 
 
+# ПАПКА REPOSITORY для 5 принципа солида, мы работаем с базой через функции в репозитории, наши
+# роуты не меняются в случае если база данных поменяется( с postgres Mongo например
+
 async def rep_create_contact(body: ContactPersonModel, db: Session) -> ContactPerson:
     contact = ContactPerson(
         name=body.name,
@@ -26,7 +29,7 @@ async def rep_show_all_contacts(skip: int, limit: int, db: Session) -> list[Type
     return db.query(ContactPerson).offset(skip).limit(limit).all()
 
 
-async def rep_show_contact(id: int, db: Session) -> Type[ContactPerson] | None:
+async def rep_show_contact(id: int, db: Session) -> ContactPerson | None:
     return db.query(ContactPerson).filter(ContactPerson.id == id).first()
 
 

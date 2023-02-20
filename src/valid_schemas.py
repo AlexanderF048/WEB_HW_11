@@ -11,7 +11,7 @@ class ContactPersonModel(BaseModel):
     surname: str = Field(max_length=50)
     email: str = EmailStr
     phone: str
-    b_date = Optional[date]
+    b_date: Optional[date]
     additional_info: str = Field(max_length=500)
 
     @validator('phone')
